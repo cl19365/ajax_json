@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>伪造Ajax</title>
+</head>
+<body>
+<div>
+    <p>去输入要加载的地址：<span id="currentTime"></span></p>
+    <p>
+        <input type="text" id="url" value="https://www.baidu.com/">
+        <input type="button" value="提交" onclick="loadPage()">
+    </p>
+</div>
+<div>
+    <h3> 加载页面的位置：</h3>
+    <iframe style="width: 100%;height: 500px" id="iframePosition">
+
+    </iframe>
+</div>
+
+<script>
+
+    var d = document.getElementById("currentTime");
+    //写一个函数，把当前日期及时间打印在div中
+    // printDateTime();
+    printDateTime();
+    var count = 0
+    var dsq = null;
+
+    function printDateTime() {
+        clearInterval(dsq);
+        var date = new Date();
+        var y = date.getFullYear();
+        var m = date.getMonth();
+        var t = date.getDate();
+        var h = date.getHours();
+        var s = date.getMinutes();
+        var s1 = date.getSeconds();
+        var d1 = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"][date.getDay()];
+        count++;
+        d.innerHTML = y + "年" + m + "月" + t + "日 " + h + ":" + s + ":" + s1 + "     " + d1;
+
+        dsq = setInterval("printDateTime()", 1000);//第一秒的时候一个定时器在调用函数
+        //第二秒的时候    2个定时器
+        //第三秒的时候    4个定时器
+        //第四秒的时候    8个定时器
+        //在使用setInterval定时器的时候一定要注意清除定时器
+    }
+
+    function loadPage() {
+        var targetURL = document.getElementById("url").value;
+        console.log(targetURL);
+        document.getElementById("iframePosition").src = targetURL;
+    }
+</script>
+</body>
+</html>
